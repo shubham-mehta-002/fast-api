@@ -7,7 +7,7 @@ class Patient(BaseModel):
     email : Optional[EmailStr] = "default@gmail.com"
     contact_details : Dict[str,str] 
 
-    @model_validator()
+    @model_validator(mode="after")
     @classmethod
     def validate_emergency_contact(cls,model):
         if model.age > 60 and 'emergency' not in model.contact_details:
@@ -16,7 +16,7 @@ class Patient(BaseModel):
 
 patient_info = {
     "name" : "Alice Smith",
-    "age" : 25,
+    "age" : 70,
     "email" : "alice@hdfc.com",
     "contact_details": {
         "emergency" : "987-654-3210",
